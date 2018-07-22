@@ -2,5 +2,25 @@
 </head>
 <body>
 	<h1>Vide Info</h1>
+	<form>
+		<div>
+			<label>Selecione um video</label>
+			<input type="file" accept="video/*" />
+		</div>
+		<button type="submit">Enviar</button>
+	</form>
 
+	<div id='teste'></div>
+
+	<script>
+		const electron = require('electron');
+		const { ipcRenderer } = electron;
+
+		document.querySelector('form').addEventListener('submit', (event) => {
+			event.preventDefault();
+			const { path } = document.querySelector('input').files[0]
+
+			ipcRenderer.send('video:submit', path);
+		})
+	</script>
 </body>
