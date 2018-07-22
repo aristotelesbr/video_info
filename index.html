@@ -1,7 +1,7 @@
 <head>
 </head>
 <body>
-	<h1>Vide Info</h1>
+	<h1>Video Info</h1>
 	<form>
 		<div>
 			<label>Selecione um video</label>
@@ -10,8 +10,7 @@
 		<button type="submit">Enviar</button>
 	</form>
 
-	<div id='teste'></div>
-
+	<h1 id="result"></h1>
 	<script>
 		const electron = require('electron');
 		const { ipcRenderer } = electron;
@@ -21,6 +20,10 @@
 			const { path } = document.querySelector('input').files[0]
 
 			ipcRenderer.send('video:submit', path);
+		})
+
+		ipcRenderer.on('video:metadata', (event, duration) => {
+			document.querySelector("#result").innerHTML = `A duração do video é de ${duration} segundos.`
 		})
 	</script>
 </body>
